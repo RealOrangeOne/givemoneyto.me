@@ -5,6 +5,8 @@
     align-items: center;
 }
 
-.hero-jumbotron {
-    height: 100vh;
+@include media-breakpoint-up(lg) {
+    .jumbotron {
+        height: 50vh;
+    }
 }
