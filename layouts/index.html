@@ -3,9 +3,34 @@
 <head>
     <title>{{ .Title }}</title>
     {{ partial "style.html" "css/font-awesome.css" }}
+    {{ partial "style.html" "css/animate.css" }}
     {{ partial "style.html" "scss/index.scss" }}
 </head>
 <body>
+    <div class="jumbotron mb-0 jumbotron-fluid text-center vertical-center hero-jumbotron">
+        <div class="container">
+            <h1 class="display-1">{{ .Site.Title }}</h1>
+            <p class="lead">You should give me money. Here's how:</p>
+            <h1>
+                <i class="fas fa-chevron-down mt-5 animated infinite slideInDown"></i>
+            </h1>
+        </div>
+    </div>
+
+    <div class="jumbotron mb-0 jumbotron-fluid">
+    <div class="container">
+        <div class="card-deck">
+        {{ range .Pages.ByTitle }}
+          <div class="card text-center mx-5">
+            <a href="{{ .Permalink }}" class="colour-invert">
+                <img src="{{ .Params.image }}" class="card-img-top my-3 mx-3" alt="{{ .Title }} logo" style="max-width:40%" />
+            </a>
+          </div>
+            {{ end }}
+        </div>
+    </div>
+    </div>
+
     {{ partial "script.html" "js/bootstrap.js" }}
 </body>
 </html>

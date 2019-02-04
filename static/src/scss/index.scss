@@ -1,1 +1,10 @@
 @import "node_modules/bootstrap/scss/bootstrap";
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
+
+.hero-jumbotron {
+    height: 100vh;
+}
