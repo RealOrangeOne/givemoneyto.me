@@ -7,7 +7,7 @@ import Bundler from 'parcel-bundler';
 import { dirname, join } from 'path';
 import ProgressBar from 'progress';
 import rimraf from 'rimraf';
-import { range } from 'underscore';
+import { mapObject, range } from 'underscore';
 
 interface Account {
   image: string;
@@ -28,6 +28,16 @@ const BUNDLER_OPTIONS = {
   watch: false,
   minify: true,
 };
+
+function readAccounts(): ReadonlyArray<Account> {
+  const rawAccounts: Object = jsyaml.safeLoad(readFileSync(join(__dirname, 'accounts.yml')).toString());
+  return Object.values(mapObject(rawAccounts, (val, key) => {
+    return {
+      ...val,
+      name: key
+    };
+  }));
+}
 
 
 function statusOutput(message: string) {
@@ -52,10 +62,11 @@ function writeTemplate(
   rimraf.sync(BUILD_DIR);
 
   statusOutput("Reading accounts")
-  const accounts: ReadonlyArray<Account> = jsyaml.safeLoad(readFileSync(join(__dirname, 'accounts.yml')).toString());
+  const accounts = readAccounts();
 
   statusOutput('Creating template');
   const bundler = new Bundler(join(SRC_DIR, 'template.html'), BUNDLER_OPTIONS);
+  console.log((bundler as any));
   await bundler.bundle();
 
   statusOutput('Compiling HTML template');

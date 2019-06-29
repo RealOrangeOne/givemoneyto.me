@@ -1,8 +1,34 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss" />
+        <link rel="stylesheet" href="../node_modules/animate.css/animate.min.css" />
         <link rel="stylesheet" href="./index.scss" />
     </head>
 <body>
-    {{ value }}
+    <div class="jumbotron mb-0 jumbotron-fluid text-center vertical-center">
+            <div class="container">
+                <h1 class="display-1"></h1>
+                <p class="lead">You should give me money. Here's how:</p>
+                <h1>
+                    <i class="fas fa-chevron-down mt-5 animated infinite slideInDown"></i>
+                </h1>
+            </div>
+        </div>
+
+        <div class="jumbotron mb-0 jumbotron-fluid">
+        <div class="container">
+            <div class="card-deck">
+            {{#list accounts }}
+            <div class="card text-center mx-5">
+                <a href="{{ link }}" class="colour-invert">
+                    <img src="{{ image }}" class="card-img-top my-3 mx-3" alt="{{ name }} logo" style="max-width:40%" />
+                </a>
+            </div>
+            {{/list}}
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../node_modules/bootstrap/js/src/index.js"></script>
 </body>
 </html>
