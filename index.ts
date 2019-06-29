@@ -1,16 +1,18 @@
-import Bundler from 'parcel-bundler';
-import { join, dirname } from 'path';
-import rimraf from 'rimraf';
 import { readFileSync, writeFileSync } from 'fs';
 import Handlebars from 'handlebars';
 import mkdirp from 'mkdirp';
-import { range } from 'underscore';
+import Bundler from 'parcel-bundler';
+import { dirname, join } from 'path';
 import ProgressBar from 'progress';
+import rimraf from 'rimraf';
+import { range } from 'underscore';
 
 const BUILD_DIR = join(__dirname, 'build');
 const SRC_DIR = join(__dirname, 'src');
 const PROGRESS_BAR_FORMAT = '[:bar] :rate/ps :percent :current/:total';
-const MAX_VALUE = process.env.MAX_VALUE ? parseInt(process.env.MAX_VALUE) : 10;
+const MAX_VALUE = process.env.MAX_VALUE
+  ? parseInt(process.env.MAX_VALUE, 10)
+  : 10;
 
 const BUNDLER_OPTIONS = {
   outDir: BUILD_DIR,
