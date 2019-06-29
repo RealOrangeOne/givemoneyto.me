@@ -59,6 +59,13 @@ function writeTemplate(
   writeFileSync(outputFile, template(context));
 }
 
+function humanize(value: number) {
+  if (isPrecision(value, 0)) {
+    return value.toString();
+  }
+  return value.toFixed(2);
+}
+
 (async function() {
   rimraf.sync(BUILD_DIR);
 
@@ -94,7 +101,8 @@ function writeTemplate(
       const value = parseFloat(i.toFixed(2));
       const context = {
         ...baseContext,
-        value: value.toFixed(2),
+        displayValue: "£" + humanize(value),
+        value: humanize(value)
       };
       writeTemplate(template, value.toString(), context);
       if (isPrecision(value, 1)) {
@@ -106,7 +114,7 @@ function writeTemplate(
     }
     bar.tick();
   });
-  writeTemplate(template, '', { ...baseContext, value: '' });
+  writeTemplate(template, '', { ...baseContext, displayValue: 'money' });
   const filesOutput = glob.sync(join(BUILD_DIR, '**/index.html')).length;
   console.log(`Generated ${filesOutput} files.`);
 })();
