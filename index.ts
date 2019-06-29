@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
+import glob from 'glob';
 import Handlebars from 'handlebars';
 import mkdirp from 'mkdirp';
 import Bundler from 'parcel-bundler';
@@ -75,4 +76,6 @@ function writeTemplate(
     bar.tick();
   });
   writeTemplate(template, '', {value: ''});
+  const filesOutput = glob.sync(join(BUILD_DIR, "**/index.html")).length;
+  console.log(`Generated ${filesOutput} files.`);
 })();
