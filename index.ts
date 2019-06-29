@@ -26,22 +26,14 @@ function isPrecision(value: number, precision: number) {
   return parseFloat(value.toFixed(precision)) === value;
 }
 
-function writeTemplate(content: string, value: string) {
+function writeTemplate(
+  template: HandlebarsTemplateDelegate,
+  value: string,
+  context: any
+) {
   const outputFile = join(BUILD_DIR, value, 'index.html');
   mkdirp.sync(dirname(outputFile));
-  writeFileSync(outputFile, content);
-}
-
-function renderTemplate(template: HandlebarsTemplateDelegate, value: number) {
-  const html = template({ value });
-  writeTemplate(html, value.toString());
-  if (isPrecision(value, 1)) {
-    writeTemplate(html, value.toString() + '0');
-  }
-  if (isPrecision(value, 0)) {
-    writeTemplate(html, value.toString() + '.0');
-    writeTemplate(html, value.toString() + '.00');
-  }
+  writeFileSync(outputFile, template(context));
 }
 
 (async function() {
@@ -65,7 +57,18 @@ function renderTemplate(template: HandlebarsTemplateDelegate, value: number) {
   statusOutput('Generating pages');
   possibleValues.forEach(i => {
     if (i) {
-      renderTemplate(template, parseFloat(i.toFixed(2)));
+      const value = parseFloat(i.toFixed(2));
+      const context = {
+        value: value.toFixed(2),
+      };
+      writeTemplate(template, value.toString(), context);
+      if (isPrecision(value, 1)) {
+        writeTemplate(template, value.toString() + '0', context);
+      }
+      if (isPrecision(value, 0)) {
+        writeTemplate(template, value.toString() + '.0', context);
+        writeTemplate(template, value.toString() + '.00', context);
+      }
     }
     bar.tick();
   });
