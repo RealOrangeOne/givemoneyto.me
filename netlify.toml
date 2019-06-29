@@ -1,9 +1,8 @@
 [build]
-  publish = "public"
-  command = "./scripts/build.sh"
+  publish = "build"
+  command = "npm run build"
 
 [build.environment]
-  HUGO_VERSION = "0.52"
   NODE_ENV = "production"
   NPM_CONFIG_PRODUCTION = "false"
 
