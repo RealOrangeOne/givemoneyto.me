@@ -21,7 +21,7 @@ const SRC_DIR = join(__dirname, 'src');
 const PROGRESS_BAR_FORMAT = '[:bar] :rate/ps :percent :current/:total';
 const MAX_VALUE = process.env.MAX_VALUE
   ? parseInt(process.env.MAX_VALUE, 10)
-  : 10;
+  : 2;
 
 const BUNDLER_OPTIONS = {
   outDir: BUILD_DIR,
