@@ -1,12 +1,20 @@
 import { readFileSync, writeFileSync } from 'fs';
 import glob from 'glob';
 import Handlebars from 'handlebars';
+import jsyaml from 'js-yaml';
 import mkdirp from 'mkdirp';
 import Bundler from 'parcel-bundler';
 import { dirname, join } from 'path';
 import ProgressBar from 'progress';
 import rimraf from 'rimraf';
 import { range } from 'underscore';
+
+interface Account {
+  image: string;
+  link: string;
+}
+
+
 
 const BUILD_DIR = join(__dirname, 'build');
 const SRC_DIR = join(__dirname, 'src');
@@ -20,6 +28,7 @@ const BUNDLER_OPTIONS = {
   watch: false,
   minify: true,
 };
+
 
 function statusOutput(message: string) {
   console.log('> ' + message + '...');
@@ -42,6 +51,9 @@ function writeTemplate(
 (async function() {
   rimraf.sync(BUILD_DIR);
 
+  statusOutput("Reading accounts")
+  const accounts: ReadonlyArray<Account> = jsyaml.safeLoad(readFileSync(join(__dirname, 'accounts.yml')).toString());
+
   statusOutput('Creating template');
   const bundler = new Bundler(join(SRC_DIR, 'template.html'), BUNDLER_OPTIONS);
   await bundler.bundle();
@@ -57,11 +69,16 @@ function writeTemplate(
     width: 40,
   });
 
+  const baseContext = {
+    accounts
+  };
+
   statusOutput('Generating pages');
   possibleValues.forEach(i => {
     if (i) {
       const value = parseFloat(i.toFixed(2));
       const context = {
+        ...baseContext,
         value: value.toFixed(2),
       };
       writeTemplate(template, value.toString(), context);
@@ -74,7 +91,7 @@ function writeTemplate(
     }
     bar.tick();
   });
-  writeTemplate(template, '', {value: ''});
+  writeTemplate(template, '', {...baseContext, value: ''});
   const filesOutput = glob.sync(join(BUILD_DIR, "**/index.html")).length;
   console.log(`Generated ${filesOutput} files.`);
 })();

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/RealOrangeOne/givemoneyto.me#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.1",
+    "@types/js-yaml": "^3.12.1",
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^12.0.10",
     "@types/parcel-bundler": "^1.12.0",
@@ -28,6 +29,7 @@
     "bootstrap": "4.2.1",
     "glob": "^7.1.4",
     "handlebars": "^4.1.2",
+    "js-yaml": "^3.13.1",
     "mkdirp": "^0.5.1",
     "parcel-bundler": "1.12.3",
     "prettier": "^1.18.2",
