@@ -66,10 +66,10 @@ function writeTemplate(
 
   statusOutput('Creating template');
   const bundler = new Bundler(join(SRC_DIR, 'template.html'), BUNDLER_OPTIONS);
-  console.log((bundler as any));
   await bundler.bundle();
 
   statusOutput('Compiling HTML template');
+  Handlebars.registerPartial('accounts', readFileSync(join(SRC_DIR, 'accounts.html')).toString());
   const template = Handlebars.compile(
     readFileSync(join(BUILD_DIR, 'template.html')).toString()
   );
