@@ -14,8 +14,6 @@ interface Account {
   link: string;
 }
 
-
-
 const BUILD_DIR = join(__dirname, 'build');
 const SRC_DIR = join(__dirname, 'src');
 const PROGRESS_BAR_FORMAT = '[:bar] :rate/ps :percent :current/:total';
@@ -30,15 +28,18 @@ const BUNDLER_OPTIONS = {
 };
 
 function readAccounts(): ReadonlyArray<Account> {
-  const rawAccounts: Object = jsyaml.safeLoad(readFileSync(join(__dirname, 'accounts.yml')).toString());
-  return Object.values(mapObject(rawAccounts, (val, key) => {
-    return {
-      ...val,
-      name: key
-    };
-  }));
+  const rawAccounts: Object = jsyaml.safeLoad(
+    readFileSync(join(__dirname, 'accounts.yml')).toString()
+  );
+  return Object.values(
+    mapObject(rawAccounts, (val, key) => {
+      return {
+        ...val,
+        name: key,
+      };
+    })
+  );
 }
-
 
 function statusOutput(message: string) {
   console.log('> ' + message + '...');
@@ -61,7 +62,7 @@ function writeTemplate(
 (async function() {
   rimraf.sync(BUILD_DIR);
 
-  statusOutput("Reading accounts")
+  statusOutput('Reading accounts');
   const accounts = readAccounts();
 
   statusOutput('Creating template');
@@ -69,7 +70,10 @@ function writeTemplate(
   await bundler.bundle();
 
   statusOutput('Compiling HTML template');
-  Handlebars.registerPartial('accounts', readFileSync(join(SRC_DIR, 'accounts.html')).toString());
+  Handlebars.registerPartial(
+    'accounts',
+    readFileSync(join(SRC_DIR, 'accounts.html')).toString()
+  );
   const template = Handlebars.compile(
     readFileSync(join(BUILD_DIR, 'template.html')).toString()
   );
@@ -81,7 +85,7 @@ function writeTemplate(
   });
 
   const baseContext = {
-    accounts
+    accounts,
   };
 
   statusOutput('Generating pages');
@@ -102,7 +106,7 @@ function writeTemplate(
     }
     bar.tick();
   });
-  writeTemplate(template, '', {...baseContext, value: ''});
-  const filesOutput = glob.sync(join(BUILD_DIR, "**/index.html")).length;
+  writeTemplate(template, '', { ...baseContext, value: '' });
+  const filesOutput = glob.sync(join(BUILD_DIR, '**/index.html')).length;
   console.log(`Generated ${filesOutput} files.`);
 })();
