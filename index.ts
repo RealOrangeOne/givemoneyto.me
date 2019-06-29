@@ -28,7 +28,7 @@ const BUNDLER_OPTIONS = {
 };
 
 function readAccounts(): ReadonlyArray<Account> {
-  const rawAccounts: Object = jsyaml.safeLoad(
+  const rawAccounts: object = jsyaml.safeLoad(
     readFileSync(join(__dirname, 'accounts.yml')).toString()
   );
   return Object.values(
