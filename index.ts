@@ -74,4 +74,5 @@ function writeTemplate(
     }
     bar.tick();
   });
+  writeTemplate(template, '', {value: ''});
 })();
