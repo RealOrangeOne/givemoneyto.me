@@ -1,0 +1,9 @@
+{
+    "extends": [
+      "tslint-config-dabapps"
+    ],
+    "rules": {
+      "no-console": false,
+      "only-arrow-functions": false
+    }
+  }
