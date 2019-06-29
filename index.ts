@@ -4,6 +4,7 @@ import rimraf from 'rimraf';
 import { readFileSync, writeFileSync } from 'fs';
 import Handlebars from 'handlebars';
 import mkdirp from 'mkdirp';
+import { range } from 'underscore';
 
 const BUILD_DIR = join(__dirname, 'build');
 const SRC_DIR = join(__dirname, 'src');
@@ -34,5 +35,8 @@ function renderTemplate(template: HandlebarsTemplateDelegate, value: number) {
 
   const template = Handlebars.compile(readFileSync(join(BUILD_DIR, 'template.html')).toString());
 
-  renderTemplate(template, 123);
+  range(0, 10, 0.5).forEach((i) => {
+    console.log(i);
+    renderTemplate(template, i);
+  });
 })();

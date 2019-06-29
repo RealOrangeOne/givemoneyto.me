@@ -21,6 +21,7 @@
     "@types/node": "^12.0.10",
     "@types/parcel-bundler": "^1.12.0",
     "@types/rimraf": "^2.0.2",
+    "@types/underscore": "^1.9.1",
     "animate.css": "3.7.0",
     "bootstrap": "4.2.1",
     "handlebars": "^4.1.2",
@@ -29,7 +30,8 @@
     "rimraf": "^2.6.3",
     "sass": "^1.22.1",
     "ts-node": "8.3.0",
-    "typescript": "3.5.2"
+    "typescript": "3.5.2",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "tslint-config-dabapps": "github:dabapps/tslint-config-dabapps#v0.5.1",
