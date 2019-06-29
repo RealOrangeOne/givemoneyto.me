@@ -69,7 +69,6 @@ function writeTemplate(
         writeTemplate(template, value.toString() + '0', context);
       }
       if (isPrecision(value, 0)) {
-        writeTemplate(template, value.toString() + '.0', context);
         writeTemplate(template, value.toString() + '.00', context);
       }
     }
