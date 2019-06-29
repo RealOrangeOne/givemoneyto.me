@@ -101,8 +101,8 @@ function humanize(value: number) {
       const value = parseFloat(i.toFixed(2));
       const context = {
         ...baseContext,
-        displayValue: "£" + humanize(value),
-        value: humanize(value)
+        displayValue: '£' + humanize(value),
+        value: humanize(value),
       };
       writeTemplate(template, value.toString(), context);
       if (isPrecision(value, 1)) {
