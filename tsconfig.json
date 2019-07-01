@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "noImplicitAny": true,
+      "skipLibCheck": true,
+      "pretty": true,
+      "strict": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "allowJs": false,
+      "checkJs": false,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "moduleResolution": "node",
+      "target": "es6",
+      "baseUrl": "./",
+      "typeRoots" : [
+        "node_modules/@types/"
+      ]
+    },
+  }
