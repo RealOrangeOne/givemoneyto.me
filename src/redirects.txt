@@ -1,0 +1,3 @@
+{{#each redirects }}
+/{{src}} /{{dest}}    200
+{{/each}}

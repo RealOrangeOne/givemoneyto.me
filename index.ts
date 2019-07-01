@@ -14,6 +14,11 @@ interface Account {
   link: string;
 }
 
+interface Redirect {
+  src: string;
+  dest: string;
+}
+
 const BUILD_DIR = join(__dirname, 'build');
 const SRC_DIR = join(__dirname, 'src');
 const PROGRESS_BAR_FORMAT = '[:bar] :rate/ps :percent :current/:total';
@@ -59,6 +64,13 @@ function writeTemplate(
   writeFileSync(outputFile, template(context));
 }
 
+function writeRedirects(redirects: ReadonlyArray<Redirect>) {
+  const template = Handlebars.compile(
+    readFileSync(join(SRC_DIR, 'redirects.txt')).toString()
+  );
+  writeFileSync(join(BUILD_DIR, '_redirects'), template({ redirects }));
+}
+
 function humanize(value: number) {
   if (isPrecision(value, 0)) {
     return value.toString();
@@ -95,6 +107,8 @@ function humanize(value: number) {
     accounts,
   };
 
+  const redirects: Redirect[] = [];
+
   statusOutput('Generating pages');
   possibleValues.forEach(i => {
     if (i) {
@@ -106,10 +120,22 @@ function humanize(value: number) {
       };
       writeTemplate(template, value.toString(), context);
       if (isPrecision(value, 1)) {
-        writeTemplate(template, value.toString() + '0', context);
+        redirects.push({
+          src: value.toString() + '0',
+          dest: value.toString(),
+        });
+        // writeTemplate(template, value.toString() + '0', context);
       }
       if (isPrecision(value, 0)) {
-        writeTemplate(template, value.toString() + '.00', context);
+        redirects.push({
+          src: value.toString() + '.00',
+          dest: value.toString(),
+        });
+        redirects.push({
+          src: value.toString() + '.0',
+          dest: value.toString(),
+        });
+        // writeTemplate(template, value.toString() + '.00', context);
       }
     }
     bar.tick();
@@ -117,4 +143,5 @@ function humanize(value: number) {
   writeTemplate(template, '', { ...baseContext, displayValue: 'money' });
   const filesOutput = glob.sync(join(BUILD_DIR, '**/index.html')).length;
   console.log(`Generated ${filesOutput} files.`);
+  writeRedirects(redirects);
 })();
