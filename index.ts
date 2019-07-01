@@ -25,12 +25,12 @@ const PROGRESS_BAR_FORMAT = '[:bar] :rate/ps :percent :current/:total';
 const MAX_VALUE = process.env.MAX_VALUE
   ? parseInt(process.env.MAX_VALUE, 10)
   : 2;
-
 const BUNDLER_OPTIONS = {
   outDir: BUILD_DIR,
   watch: false,
   minify: true,
 };
+const NEW_LINES_RE = /(\r\n|\n|\r)/gm;
 
 function readAccounts(): ReadonlyArray<Account> {
   const rawAccounts: object = jsyaml.safeLoad(
@@ -61,7 +61,7 @@ function writeTemplate(
 ) {
   const outputFile = join(BUILD_DIR, value, 'index.html');
   mkdirp.sync(dirname(outputFile));
-  writeFileSync(outputFile, template(context));
+  writeFileSync(outputFile, template(context).replace(NEW_LINES_RE, ''));
 }
 
 function writeRedirects(redirects: ReadonlyArray<Redirect>) {
