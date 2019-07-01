@@ -6,7 +6,8 @@
     "build": "ts-node index.ts",
     "lint": "tsc --noEmit --project tsconfig.json && tslint --project tsconfig.json index.ts",
     "prettier": "prettier --write index.ts",
-    "start": "http-server build/ -c-1"
+    "start": "http-server build/ -c-1",
+    "test": "npm run lint && npm run prettier -- --check"
   },
   "repository": {
     "type": "git",
