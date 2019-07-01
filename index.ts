@@ -51,7 +51,7 @@ function statusOutput(message: string) {
 }
 
 function isPrecision(value: number, precision: number) {
-  return parseFloat(value.toFixed(precision)) === value;
+  return value.toFixed(precision) === value.toString();
 }
 
 function writeTemplate(
