@@ -46,7 +46,7 @@
     "underscore": "^1.9.1"
   },
   "devDependencies": {
-    "tslint-config-dabapps": "github:dabapps/tslint-config-dabapps#v0.5.1",
+    "tslint-config-dabapps": "github:dabapps/tslint-config-dabapps#v0.5.5",
     "tslint": "5.18.0"
   }
 }
