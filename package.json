@@ -40,7 +40,7 @@
     "prettier": "^1.18.2",
     "progress": "^2.0.3",
     "rimraf": "^3.0.0",
-    "sass": "^1.22.10",
+    "sass": "^1.22.12",
     "ts-node": "8.3.0",
     "typescript": "3.6.2",
     "underscore": "^1.9.1"
