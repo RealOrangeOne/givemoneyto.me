@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/RealOrangeOne/givemoneyto.me#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.10.1",
+    "@fortawesome/fontawesome-free": "5.11.2",
     "@types/js-yaml": "^3.12.1",
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^12.7.11",
