@@ -61,7 +61,13 @@ function writeTemplate(
 ) {
   const outputFile = join(BUILD_DIR, value, 'index.html');
   mkdirp.sync(dirname(outputFile));
-  writeFileSync(outputFile, template(context).replace(NEW_LINES_RE, ''));
+  writeFileSync(
+    outputFile,
+    template({
+      ...context,
+      outputUrl: encodeURIComponent(`https://givemoneyto.me/${value}/`),
+    }).replace(NEW_LINES_RE, '')
+  );
 }
 
 function writeRedirects(redirects: ReadonlyArray<Redirect>) {
